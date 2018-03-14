@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Вход{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ static('css/signin.css') }}">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+    <div class="form-signin">
+        <form action="{{ url('login') }}" method="POST">
+            <h2 class="form-signin-heading">Авторизация</h2>
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            {{ form.non_field_errors() }}
+            {{ append_attr(add_class(form.username, 'form-control'), 'placeholder: Логин') }}
+            {{ form.username.errors }}
+            {{ append_attr(add_class(form.password, 'form-control'), 'placeholder: Пароль') }}
+            {{ form.password.errors }}
+            <button class="btn btn-lg btn-success btn-block" type="submit">Вход</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %} {% endblock %}
+
+
+

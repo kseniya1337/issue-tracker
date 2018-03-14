@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% from 'dashboard_issues_list.html' import render_issues_list %}
+
+{% block title %}Kanban-доска{% endblock %}
+
+{% block content %}
+    <div class="dashboard">
+        <div class="row">
+            <div class="col-3 column">
+                <div class="dashboard__column_title">
+                    Открытые
+                </div>
+                {{ render_issues_list(issues_open) }}
+            </div>
+            <div class="col-3 column" data-status="in_progress">
+                <div class="dashboard__column_title">
+                    В разработке
+                </div>
+                {{ render_issues_list(issues_in_progress) }}
+            </div>
+            <div class="col-3 column">
+                <div class="dashboard__column_title">
+                    В тестировании
+                </div>
+                {{ render_issues_list(issues_testing) }}
+            </div>
+            <div class="col-3 column">
+                <div class="dashboard__column_title">
+                    Готово
+                </div>
+                {{ render_issues_list(issues_production) }}
+            </div>
+    </div>
+{% endblock %}

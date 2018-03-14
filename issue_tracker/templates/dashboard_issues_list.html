@@ -1,0 +1,23 @@
+{% macro render_issues_list(issues) %}
+    {% for issue in issues %}
+        <div class="dashboard__issue dashboard__issue__priority__{{ issue.priority }}" data-id="{{ issue.id }}">
+            <div class="dashboard__issue__header">
+                <a class="dashboard__issue__header__title" href="{{ url('issue_detail', args=(issue.id, )) }}">{{ issue.id }} – {{ issue.title }}</a>
+            </div>
+            {% if issue.assignee %}
+                <a href="{{ url('profile', args=(issue.assignee.username, )) }}" class="dashboard__issue__assignee">
+                    {% if issue.assignee.avatar %}
+                        <img src="{{ issue.assignee.avatar.url }}" href="#" width="30" height="30" class="user_profile__avatar">
+                    {% else %}
+                        <img width="30" height="30" class="user_profile__avatar">
+                    {% endif %}
+                    {{ issue.assignee }}
+                </a>
+            {% else %}
+                <div class="dashboard__issue__no_assignee">
+                    Исполнитель не назначен
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endmacro %}

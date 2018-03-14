@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{{ issue }}{% endblock %}
+
+{% block content %}
+    <div class="issue_detail">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="issue_detail__issue_title">
+                    {{ issue.title }}
+                    <span class="issue_detail__priority issue_detail__priority__{{ issue.priority }}">{{ issue.get_priority_display() }}</span>
+                </div>
+
+                <div class="issue_detail__issue_description">
+                    {{ issue.description|linebreaksbr }}
+                </div>
+                <a class="btn btn-success" href="{{ url('edit_issue', args=(issue.pk, )) }}">
+                    <span class="oi oi-pencil"></span>
+                </a>
+            </div>
+            <div class="col-sm-4 issue_detail__info">
+                <div class="issue_detail__issue_assignee">
+                    Исполнитель:
+                    {% if issue.assignee %}
+                        <a href="{{ url('profile', args=(issue.assignee.username, )) }}"
+                           class="issue_detail__assignee">
+                            {% if issue.assignee.avatar %}
+                                <img src="{{ issue.assignee.avatar.url }}" href="#" width="20" height="20"
+                                     class="user_profile__avatar">
+                            {% else %}
+                                <img width="20" height="20" class="user_profile__avatar">
+                            {% endif %}
+                            {{ issue.assignee }}
+                        </a>
+                    {% else %}
+                        Не назначен
+                    {% endif %}
+                    <br>Статус: {{ issue.get_status_display() }}
+                    <br>Дата создания: {{ issue.created_at|datetimeformat('j E Y G:i') }}
+                    <br>Автор:
+                        <a href="{{ url('profile', args=(issue.author.username, )) }}" class="issue_detail__author">
+                            {% if issue.author.avatar %}
+                                <img src="{{ issue.author.avatar.url }}" href="#" width="20" height="20"
+                                     class="user_profile__avatar">
+                            {% else %}
+                                <img width="20" height="20" class="user_profile__avatar">
+                            {% endif %}
+                            {{ issue.author }}
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

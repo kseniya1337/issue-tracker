@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user }}{% endblock %}
+
+{% block content %}
+    <div class="user_profile">
+        <div class="row">
+            <div class="col-sm-3 rounded-circle user_profile__avatar_block">
+                {% if request.user.avatar %}
+                    <img src="{{ user.avatar.url }}" href="" width="150" height="150"
+                         class="nav-link-desktop user_profile__avatar ">
+                    <span class="oi oi-pencil avatar__edit_avatar"></span>
+                    <div style="display: none">
+                        <form action="{{ url('change_avatar') }}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            {{ change_avatar_form.avatar }}
+                        </form>
+                    </div>
+                {% else %}
+                    <div width="38" height="38" class="nav-link-desktop user_profile__avatar">AA</div>
+                {% endif %}
+            </div>
+
+            <div class="col-sm-9">
+                <div class="user_profile__info_user">
+                    <p class="user_profile__full_name">
+                        {{ user.first_name }} {{ user.last_name }}
+                        <span class="user_profile__email">{{ user.username }}</span>
+                    </p>
+                    <p class="user_profile__email">{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="user_profile__tasks_user">
+            {% for issue in issues %}
+                {% if request.user.pk %}
+                    <div class="profile__issue_list__issue profile__issue_list__issue__priority__{{ issue.priority }}">
+                        <div class="row">
+                            <div class="col-sm-8 profile__issue_list__issue__title">
+                                <a href="{{ url('issue_detail', args=(issue.pk, )) }}">{{ issue.pk }}
+                                    – {{ issue.title }}</a>
+                                <div class="profile__issue_list__issue__status">{{ issue.get_status_display() }}</div>
+                                <div class="profile__issue_list__issue__priority_name issue_list__issue__priority_name__{{ issue.priority }}">{{ issue.get_priority_display() }}</div>
+                            </div>
+                            <div class="col-sm-4 profile__issue_list__issue__assignee">
+                                {% if issue.assignee %}
+                                    <a href="{{ url('profile', args=(issue.assignee.username, )) }}"
+                                       class="profile__issue_list__issue__assignee">
+                                        {% if issue.assignee.avatar %}
+                                            <img src="{{ issue.assignee.avatar.url }}" href="#" width="30" height="30"
+                                                 class="user_profile__avatar">
+                                        {% else %}
+                                            <img width="30" height="30" class="user_profile__avatar">
+                                        {% endif %}
+                                        {{ issue.assignee }}
+                                    </a>
+                                {% else %}
+                                    <br>Иполнитель не назначен
+                                {% endif %}
+                                <div class="profile__issue_list__issue__date_edit">
+                                    <br>Изменена: {{ issue.created_at|datetimeformat('j E Y G:i') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <br> Список задач пуст
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
