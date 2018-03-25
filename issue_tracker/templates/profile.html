@@ -6,9 +6,9 @@
     <div class="user_profile">
         <div class="row">
             <div class="col-sm-3 rounded-circle user_profile__avatar_block">
-                {% if request.user.avatar %}
                     <img src="{{ user.avatar.url }}" href="" width="150" height="150"
                          class="nav-link-desktop user_profile__avatar ">
+                {% if user == request.user%}
                     <span class="oi oi-pencil avatar__edit_avatar"></span>
                     <div style="display: none">
                         <form action="{{ url('change_avatar') }}" method="post" enctype="multipart/form-data">
@@ -16,8 +16,6 @@
                             {{ change_avatar_form.avatar }}
                         </form>
                     </div>
-                {% else %}
-                    <div width="38" height="38" class="nav-link-desktop user_profile__avatar">AA</div>
                 {% endif %}
             </div>
 

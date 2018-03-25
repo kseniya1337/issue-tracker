@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/db-files/
+    volumes:
+      - postgres:/var/lib/postgresql
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      DJANGO_SETTINGS_MODULE: issue_tracker.settings.production
+      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
+      AWS_ACCESS_KEY_ID: <aws access key id>
+      AWS_SECRET_ACCESS_KEY: <aws secret access key>
+
+volumes:
+  postgres: {}
