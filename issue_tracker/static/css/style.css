@@ -402,6 +402,12 @@ button:focus {
             text-decoration: none;
         }
 
+        .fail_search {
+            margin: 0 auto;
+            color: #dddddd;
+            font-size: 26px;
+
+        }
 
 .edit_issue {
     margin-left: 130px;

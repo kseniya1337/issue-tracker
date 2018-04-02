@@ -16,8 +16,6 @@ services:
     environment:
       DJANGO_SETTINGS_MODULE: issue_tracker.settings.production
       DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
-      AWS_ACCESS_KEY_ID: <aws access key id>
-      AWS_SECRET_ACCESS_KEY: <aws secret access key>
 
 volumes:
   postgres: {}

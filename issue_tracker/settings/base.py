@@ -98,3 +98,9 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 
 AUTH_USER_MODEL = 'issue_tracker.User'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = str(BASE_DIR.parent / 'public' / 'media')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = str(BASE_DIR.parent / 'public' / 'static')
