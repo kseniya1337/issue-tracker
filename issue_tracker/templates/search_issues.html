@@ -4,35 +4,41 @@
 
 {% block content %}
     <div class="issue_list">
-        {% for issue in issues %}
-            <div class="issue_list__issue issue_list__issue__priority__{{ issue.priority }}">
-                <div class="row">
-                    <div class="col-sm-8 issue_list__issue__title">
-                        <a href="{{ url('issue_detail', args=(issue.pk, )) }}">{{ issue.id }} – {{ issue.title }}</a>
-                        <div class="issue_list__issue__status">{{ issue.get_status_display() }}</div>
-                        <div class="issue_list__issue__priority_name issue_list__issue__priority_name__{{ issue.priority }}">{{ issue.get_priority_display() }}</div>
-                    </div>
-                    <div class="col-sm-4 issue_list__issue__assignee">
-                        {% if issue.assignee %}
-                            <a href="{{ url('profile', args=(issue.assignee.username, )) }}" class="issue_list__issue__assignee">
-                                {% if issue.assignee.avatar %}
-                                    <img src="{{ issue.assignee.avatar.url }}" href="#" width="30" height="30"
-                                         class="user_profile__avatar">
-                                {% else %}
-                                    <img width="30" height="30" class="user_profile__avatar">
-                                {% endif %}
-                                {{ issue.assignee }}
-                            </a>
-                        {% else %}
-                            <br>Иполнитель не назначен
-                        {% endif %}
-                        <div class="issue_list__issue__date_edit">
-                            <br>Изменена: {{ issue.updated_at|datetimeformat('j E Y G:i') }}
+        {% if issues %}
+            {% for issue in issues %}
+                <div class="issue_list__issue issue_list__issue__priority__{{ issue.priority }}">
+                    <div class="row">
+                        <div class="col-sm-8 issue_list__issue__title">
+                            <a href="{{ url('issue_detail', args=(issue.pk, )) }}">{{ issue.id }} – {{ issue.title }}</a>
+                            <div class="issue_list__issue__status">{{ issue.get_status_display() }}</div>
+                            <div class="issue_list__issue__priority_name issue_list__issue__priority_name__{{ issue.priority }}">{{ issue.get_priority_display() }}</div>
+                        </div>
+                        <div class="col-sm-4 issue_list__issue__assignee">
+                            {% if issue.assignee %}
+                                <a href="{{ url('profile', args=(issue.assignee.username, )) }}" class="issue_list__issue__assignee">
+                                    {% if issue.assignee.avatar %}
+                                        <img src="{{ issue.assignee.avatar.url }}" href="#" width="30" height="30"
+                                             class="user_profile__avatar">
+                                    {% else %}
+                                        <img width="30" height="30" class="user_profile__avatar">
+                                    {% endif %}
+                                    {{ issue.assignee }}
+                                </a>
+                            {% else %}
+                                <br>Иполнитель не назначен
+                            {% endif %}
+                            <div class="issue_list__issue__date_edit">
+                                <br>Изменена: {{ issue.updated_at|datetimeformat('j E Y G:i') }}
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="fail_search">
+                Задач не найдено
             </div>
-        {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
