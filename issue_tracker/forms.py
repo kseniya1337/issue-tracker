@@ -1,6 +1,7 @@
 from django import forms
 
 from issue_tracker.models import Issue, User
+from issue_tracker.models import Comment
 
 
 class CreateIssueForm(forms.ModelForm):
@@ -11,6 +12,14 @@ class CreateIssueForm(forms.ModelForm):
             'assignee',
             'priority',
             'description',
+        ]
+
+
+class CreateCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = [
+            'text',
         ]
 
 

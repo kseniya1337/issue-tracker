@@ -263,8 +263,6 @@ button:focus {
             cursor: pointer;
         }
 
-
-
         .user_profile__avatar_block:hover .avatar__edit_avatar{
             display: block;
             color: #f6f6f6;
@@ -327,6 +325,66 @@ button:focus {
     }
     .issue_detail__priority__critical {
         color: #FF6347;
+    }
+
+    .issue_detail__comment_issue {
+        padding-top: 50px;
+        width: 50%;
+        margin-left: 13px;
+    }
+
+    .issue_detail__comment_card {
+        /*border: 1px solid #f7f7f7;*/
+        /*border-radius: 5px;*/
+        padding: 8px;
+        margin-top: 15px;
+    }
+
+    .issue_detail__comment_author_avatar {
+        display: inline-block;
+    }
+
+    .issue_detail__comment_author_name {
+        display: inline-block;
+        padding-left: 3px;
+    }
+
+    .issue_detail__comment_create_date {
+        color: #aaaaaa;
+        font-size: 14px;
+        padding-left: 35px;
+    }
+
+    .issue_detail__comment_text {
+        display: block;
+        padding-left: 35px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        word-wrap: break-word;
+    }
+
+    .issue_detail__comment_form__text_field textarea{
+        height: 100px;
+        width: 80%;
+        margin-top: 20px;
+    }
+
+    .issue_detail__delete_comment {
+        float: right;
+        font-size: 11px;
+        display: none;
+    }
+
+    .issue_detail__delete_comment a {
+        color: #cccccc;
+    }
+
+    .issue_detail__comment_card:hover .issue_detail__delete_comment {
+        display: inline-block;
+    }
+
+    .issue_detail__delete_comment:hover a {
+        color: #5d696a;
     }
 
 .issue_list {

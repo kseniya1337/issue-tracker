@@ -4,8 +4,9 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 
-from issue_tracker.forms import CreateIssueForm, EditIssueForm, AvatarChangeForm
-from issue_tracker.models import Issue, User
+from issue_tracker.forms import CreateIssueForm, EditIssueForm, AvatarChangeForm, CreateCommentForm
+from issue_tracker.models import Issue, User, comment
+from issue_tracker.models.comment import Comment
 
 
 @login_required
@@ -77,6 +78,8 @@ def issue_detail(request: HttpRequest, id: str) -> HttpResponse:
     issue = get_object_or_404(Issue, id=id)
     return render(request, 'issue_detail.html', {
         'issue': issue,
+        'create_comment_form': CreateCommentForm(),
+
     })
 
 
@@ -87,3 +90,26 @@ def change_avatar(request: HttpRequest) -> HttpResponse:
     if form.is_valid():
         form.save()
     return redirect('profile', request.user.username)
+
+
+@login_required
+def create_comment(request: HttpRequest, id: str) -> HttpResponse:
+    id = int(id)
+    get_object_or_404(Issue, id=id)
+    form = CreateCommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.issue_id = id
+        comment.save()
+    return redirect('issue_detail', id)
+
+
+@login_required
+def delete_comment(request: HttpRequest, issue_id: str, comment_id: str) -> HttpResponse:
+    issue_id = int(issue_id)
+    comment_id = int(comment_id)
+    get_object_or_404(Issue, id=issue_id)
+    comment = get_object_or_404(Comment, id=comment_id, author=request.user)
+    comment.delete()
+    return redirect('issue_detail', issue_id)

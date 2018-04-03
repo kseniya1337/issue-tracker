@@ -17,6 +17,9 @@ urlpatterns = [
     url(r'^issue/(?P<id>\d+)/$', views.issue_detail, name='issue_detail'),
     url(r'^search/$', views.search_issue, name='search_issue'),
     url(r'^issue/(?P<id>\d+)/edit/$', views.edit_issue, name='edit_issue'),
+    url(r'^issue/(?P<id>\d+)/comment/$', views.create_comment, name='create_comment'),
+    url(r'^issue/(?P<issue_id>\d+)/comment/(?P<comment_id>\d+)/delete/$', views.delete_comment, name='delete_comment'),
+
 ]
 
 if settings.DEBUG:

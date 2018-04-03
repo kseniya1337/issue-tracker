@@ -38,16 +38,53 @@
                     <br>Статус: {{ issue.get_status_display() }}
                     <br>Дата создания: {{ issue.created_at|datetimeformat('j E Y G:i') }}
                     <br>Автор:
-                        <a href="{{ url('profile', args=(issue.author.username, )) }}" class="issue_detail__author">
-                            {% if issue.author.avatar %}
-                                <img src="{{ issue.author.avatar.url }}" href="#" width="20" height="20"
-                                     class="user_profile__avatar">
-                            {% else %}
-                                <img width="20" height="20" class="user_profile__avatar">
-                            {% endif %}
-                            {{ issue.author }}
-                        </a>
+                    <a href="{{ url('profile', args=(issue.author.username, )) }}" class="issue_detail__author">
+                        {% if issue.author.avatar %}
+                            <img src="{{ issue.author.avatar.url }}" href="#" width="20" height="20"
+                                 class="user_profile__avatar">
+                        {% else %}
+                            <img width="20" height="20" class="user_profile__avatar">
+                        {% endif %}
+                        {{ issue.author }}
+                    </a>
                 </div>
+            </div>
+            <div class="issue_detail__comment_issue">
+                <h4>Комментарии</h4>
+                {% for comment in issue.comments.all() %}
+                    <div class="issue_detail__comments_list">
+                        <div class="issue_detail__comment_card">
+                            <div class="issue_detail__delete_comment">
+                                {% if comment.author == request.user%}
+                                    <a class="oi oi-x delete_comment__icon"  href="{{ url('delete_comment', args=(issue.pk, comment.pk, )) }}" data-toggle="tooltip" data-placement="top" title="Удалить"></a>
+                                {% endif %}
+                            </div>
+                            <div class="issue_detail__comment_author_avatar">
+                                <img src="{{ comment.author.avatar.url }}" href="#" width="30" height="30"
+                                     class="user_profile__avatar">
+                            </div>
+                            <div class="issue_detail__comment_author_name">
+                                 <a href="{{ url('profile', args=(comment.author.username, )) }}" class="issue_detail__author">
+                                {{ comment.author }}
+                                 </a>
+                            </div>
+                            <div class="issue_detail__comment_text">
+                                {{ comment.text|linebreaksbr }}
+                            </div>
+                            <div class="issue_detail__comment_create_date">
+                                {{ comment.created_date|datetimeformat('j E Y G:i') }}
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+                <form method="post" action="{{ url('create_comment', args=(issue.pk, )) }}">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div class="form-group issue_detail__comment_form__text_field">
+                        {{ add_class(create_comment_form.text, 'form-control') }}
+                    </div>
+                    <button class="btn btn-success" type="submit">Отправить</button>
+                </form>
             </div>
         </div>
     </div>
