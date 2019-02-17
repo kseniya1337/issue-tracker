@@ -28,6 +28,7 @@ def search_issue(request: HttpRequest) -> HttpResponse:
         issues = issues.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
+    raise Exception()
     return render(request, 'search_issues.html', {
         'issues': issues,
     })
