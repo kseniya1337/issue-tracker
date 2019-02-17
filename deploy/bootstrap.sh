@@ -12,9 +12,9 @@ ssh root@issue-tracker.fletcher.pro bash -c '
   apt-get install -y docker-ce docker-ce-cli containerd.io
   [ ! -d .acme.sh ] && curl https://get.acme.sh | sh
   ./.acme.sh/acme.sh --issue --standalone -d issue-tracker.fletcher.pro --force
-  mkdir -p certs/
+  mkdir -p certs
   ./.acme.sh/acme.sh --install-cert -d issue-tracker.fletcher.pro --cert-file certs/cert.pem --key-file certs/key.pem --fullchain-file certs/fullchain.pem
-  mkdir -p acme-challenges/
+  mkdir -p media
 '
 
 [ -z $(docker-machine ls --filter 'NAME=issue-tracker.fletcher.pro' -q) ] && docker-machine create --driver generic --generic-ip-address=issue-tracker.fletcher.pro --generic-ssh-user=root --generic-ssh-key ~/.ssh/id_rsa issue-tracker.fletcher.pro
@@ -24,6 +24,6 @@ ssh root@issue-tracker.fletcher.pro bash -c '
 ssh root@issue-tracker.fletcher.pro bash -c '
   set -e
   ./.acme.sh/acme.sh --remove -d issue-tracker.fletcher.pro
-  mkdir -p acme-challenges/
+  mkdir -p acme-challenges
   ./.acme.sh/acme.sh --issue -d issue-tracker.fletcher.pro -w acme-challenges/
 '

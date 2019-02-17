@@ -9,6 +9,8 @@ services:
   web:
     restart: always
     build: web/
+    volumes:
+      - /root/media:/var/www/media
     depends_on:
       - postgres
   nginx:
@@ -20,6 +22,7 @@ services:
     volumes:
       - /root/certs:/certs
       - /root/acme-challenges:/acme-challenges
+      - /root/media:/var/www/media
     depends_on:
       - web
 volumes:

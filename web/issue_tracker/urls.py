@@ -12,8 +12,8 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
 
     path('', views.index, name='index'),
-    path('profile/<username>/', views.profile, name='profile'),
     path('profile/change-avatar/', views.change_avatar, name='change_avatar'),
+    path('profile/<username>/', views.profile, name='profile'),
     path('create/', views.create_issue, name='create_issue'),
     path('issue/<int:id>/', views.issue_detail, name='issue_detail'),
     path('search/', views.search_issue, name='search_issue'),
