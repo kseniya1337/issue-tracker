@@ -1,1 +1,0 @@
-web: gunicorn issue_tracker.wsgi --access-logfile - --error-logfile -
