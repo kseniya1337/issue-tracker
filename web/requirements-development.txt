@@ -1,0 +1,7 @@
+--requirement requirements.txt
+
+
+django-debug-toolbar==1.11
+honcho==1.0.1
+Werkzeug==0.14.1
+ipython
