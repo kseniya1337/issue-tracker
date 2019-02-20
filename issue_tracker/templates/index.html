@@ -7,29 +7,38 @@
 {% block content %}
     <div class="dashboard">
         <div class="row">
-            <div class="col-3 column">
+            <div class="col-3 column droppable" data-status="open">
                 <div class="dashboard__column_title">
                     Открытые
                 </div>
-                {{ render_issues_list(issues_open) }}
+                <div class="dashboard__issues_open">
+                    {{ render_issues_list(issues_open) }}
+                </div>
             </div>
-            <div class="col-3 column" data-status="in_progress">
+            <div class="col-3 column droppable" data-status="in_progress">
                 <div class="dashboard__column_title">
                     В разработке
                 </div>
-                {{ render_issues_list(issues_in_progress) }}
+                <div class="dashboard__issues_in_progress">
+                    {{ render_issues_list(issues_in_progress) }}
+                </div>
             </div>
-            <div class="col-3 column">
+            <div class="col-3 column droppable" data-status="testing">
                 <div class="dashboard__column_title">
                     В тестировании
                 </div>
-                {{ render_issues_list(issues_testing) }}
+                <div class="dashboard__issues_testing">
+                    {{ render_issues_list(issues_testing) }}
+                </div>
             </div>
-            <div class="col-3 column">
+            <div class="col-3 column droppable" data-status="production">
                 <div class="dashboard__column_title">
                     Готово
                 </div>
-                {{ render_issues_list(issues_production) }}
+                <div class="dashboard__issues_production">
+                    {{ render_issues_list(issues_production) }}
+                </div>
             </div>
+        </div>
     </div>
 {% endblock %}
