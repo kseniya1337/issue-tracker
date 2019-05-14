@@ -6,6 +6,7 @@ class Comment(models.Model):
     issue = models.ForeignKey(
         to='issue_tracker.Issue',
         related_name='comments',
+        on_delete=models.deletion.CASCADE,
     )
     author = models.ForeignKey(
         to='issue_tracker.User',
@@ -25,6 +26,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
-
-
-

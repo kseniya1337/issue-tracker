@@ -1,4 +1,4 @@
-FROM python:3.7-alpine3.8
+FROM python:3.6-alpine3.8
 RUN apk add --no-cache --update musl-dev gcc postgresql-dev linux-headers build-base python-dev py-pip jpeg-dev zlib-dev
 COPY requirements.txt /src/
 WORKDIR /src/

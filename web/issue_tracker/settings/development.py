@@ -16,3 +16,6 @@ MIDDLEWARE += [
 ]
 
 STATIC_BUNDLE_URL = 'http://localhost:8001/static/bundle.js'
+
+STATIC_ROOT = path('public', 'static')
+MEDIA_ROOT = path('public', 'media')
